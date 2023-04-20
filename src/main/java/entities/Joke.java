@@ -1,14 +1,13 @@
 package entities;
 
 import javax.persistence.*;
-
 @Entity
 @Table(name = "joke", schema = "CA2", catalog = "")
-
 public class Joke {
 
     public Joke() {
     }
+
 
     @Basic
     @Column(name = "ChuckNorris")
@@ -54,4 +53,3 @@ public class Joke {
         return result;
     }
 }
-

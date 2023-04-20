@@ -3,17 +3,23 @@ package rest;
 import entities.RenameMe;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
+
 import static io.restassured.RestAssured.given;
+
 import io.restassured.parsing.Parser;
+
 import java.net.URI;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+
 import static org.hamcrest.Matchers.equalTo;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -101,5 +107,14 @@ public class RenameMeResourceTest {
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode())
                 .body("count", equalTo(2));
+    }
+
+    @Test
+    void joke() {
+        given()
+                .contentType("application/json")
+                .get("/xxx/joke").then()
+                .assertThat()
+                .statusCode(HttpStatus.OK_200.getStatusCode());
     }
 }
