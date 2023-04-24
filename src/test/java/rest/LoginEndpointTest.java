@@ -122,7 +122,7 @@ public class LoginEndpointTest {
                 .when()
                 .get("/info/").then()
                 .statusCode(200)
-                .body("msg", equalTo("Hello anonymous person"));
+                .body("msg", equalTo("Hello anonymous"));
     }
 
     @Test
