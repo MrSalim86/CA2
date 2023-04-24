@@ -1,4 +1,4 @@
-/*package rest;
+package rest;
 
 import dtos.MyJokeDTO;
 import io.restassured.RestAssured;
@@ -83,4 +83,3 @@ public class JokesResourceTest {
 
 
 }
-*/
