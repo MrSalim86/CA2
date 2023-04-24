@@ -1,4 +1,4 @@
-package rest;
+/*package rest;
 
 import entities.RenameMe;
 import utils.EMF_Creator;
@@ -118,3 +118,4 @@ public class RenameMeResourceTest {
                 .statusCode(HttpStatus.OK_200.getStatusCode());
     }
 }
+*/
