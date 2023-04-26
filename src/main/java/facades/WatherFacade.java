@@ -2,8 +2,7 @@ package facades;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.ChuckDTO;
-import dtos.DadDTO;
+import dtos.WeatherDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,28 +12,26 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+public class WatherFacade {
 
-/**
- * Rename Class to a relevant name Add add relevant facade methods
- */
-public class JokeFacade {
-
-    private static JokeFacade instance;
+    private static WatherFacade instance;
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
-    private JokeFacade() {
+    private WatherFacade() {
     }
 
-//test
+
     /**
      * @param _emf
      * @return an instance of this facade class.
      */
-    public static JokeFacade getJokeFacade(EntityManagerFactory _emf) {
+
+
+    public static WatherFacade getWatherFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
-            instance = new JokeFacade();
+            instance = new WatherFacade();
         }
         return instance;
     }
@@ -44,7 +41,6 @@ public class JokeFacade {
     }
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
 
     public String fetchData(String apiUrl) throws IOException {
         URL url = new URL(apiUrl);
@@ -58,30 +54,24 @@ public class JokeFacade {
                         connection.getInputStream()));
                 String inputLine;
                 StringBuilder response = new StringBuilder();
+
                 while ((inputLine = in.readLine()) != null) {
+
                     response.append(inputLine);
                 }
                 in.close();
                 return response.toString();
-
             }
         } catch (Exception e) {
-            System.out.println("Error in fetchData");
+            System.out.println("Error in fetchData" + e.getMessage());
             e.printStackTrace();
-            System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }
         return null;
     }
 
-
-    //little comment
-    public DadDTO createDadDTo(String input) {
-        return GSON.fromJson(input, DadDTO.class);
-    }
-
-    public ChuckDTO createChuckDTO(String input) {
-        return GSON.fromJson(input, ChuckDTO.class);
+    public WeatherDTO createWeatherDTO(String input) {
+      return GSON.fromJson(input, WeatherDTO.class);
     }
 
 }

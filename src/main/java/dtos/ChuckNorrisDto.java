@@ -1,11 +1,11 @@
 package dtos;
 
-public class ChuckDTO {
 
+public class ChuckNorrisDto {
     private String id;
     private String value;
 
-    public ChuckDTO(String id, String value) {
+    public ChuckNorrisDto(String id, String value) {
         this.id = id;
         this.value = value;
     }
@@ -28,9 +28,10 @@ public class ChuckDTO {
 
     @Override
     public String toString() {
-        return "ChuckDTO{" +
+        return "ChuckNorrisDto{" +
                 "id='" + id + '\'' +
                 ", value='" + value + '\'' +
                 '}';
     }
+
 }

@@ -1,7 +1,8 @@
 package rest;
 
-import entities.RenameMe;
+import dtos.JokeDTO;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
@@ -13,21 +14,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
-//Uncomment the line below, to temporarily disable this test
-//@Disabled
 
-public class RenameMeResourceTest {
+public class ChuckNorrisResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static RenameMe r1, r2;
+    private static JokeDTO jokeDTO;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -64,43 +62,23 @@ public class RenameMeResourceTest {
     //TODO -- Make sure to change the EntityClass used below to use YOUR OWN (renamed) Entity class
     @BeforeEach
     public void setUp() {
-        EntityManager em = emf.createEntityManager();
-        r1 = new RenameMe("Some txt", "More text");
-        r2 = new RenameMe("aaa", "bbb");
-        try {
-            em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(r1);
-            em.persist(r2);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
+
     }
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/xxx").then().statusCode(200);
-    }
-
-    //This test assumes the database contains two rows
-    @Test
-    public void testDummyMsg() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/xxx/").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("msg", equalTo("Hello World"));
+        given().when().get("/joke").then().statusCode(200);
     }
 
     @Test
-    public void testCount() throws Exception {
+    public void testJoke() {
         given()
-                .contentType("application/json")
-                .get("/xxx/count").then()
+                .contentType(ContentType.JSON)
+                .get("/joke")
+                .then()
                 .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("count", equalTo(2));
+                .statusCode(HttpStatus.OK_200.getStatusCode());
     }
+
+
 }

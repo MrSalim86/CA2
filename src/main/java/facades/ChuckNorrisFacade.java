@@ -1,10 +1,19 @@
 package facades;
 
-import ExternApi.ChuckNorrisDto;
-import entities.Joke;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import dtos.ChuckNorrisDto;
+import dtos.WeatherDTO;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class ChuckNorrisFacade {
 
@@ -13,11 +22,11 @@ public class ChuckNorrisFacade {
     private static EntityManagerFactory emf;
 
     //Private Constructor to ensure Singleton
-    private ChuckNorrisFacade() {}
+    private ChuckNorrisFacade() {
+    }
 
 
     /**
-     *
      * @param _emf
      * @return an instance of this facade class.
      */
@@ -33,17 +42,43 @@ public class ChuckNorrisFacade {
         return emf.createEntityManager();
     }
 
-    public ChuckNorrisDto create(ChuckNorrisDto cd){
-        Joke je = new Joke();
-        je.setChuckNorris(cd.getJoke());
-        EntityManager em = getEntityManager();
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    public String fetchData(String apiUrl) throws IOException {
+        URL url = new URL(apiUrl);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json"); // Add this line
         try {
-            em.getTransaction().begin();
-            em.persist(je);
-            em.getTransaction().commit();
-        } finally {
-            em.close();
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(
+                        connection.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+
+                }
+                in.close();
+                return response.toString();
+            }
+        } catch (Exception e) {
+            System.out.println("Errot in in fetchData" + e.getMessage());
+            e.printStackTrace();
+            System.out.println(e.getStackTrace());
         }
-        return new ChuckNorrisDto(cd.getJoke());
+        return null;
     }
+
+
+    public ChuckNorrisDto createChuckNorrisDto(String input) {
+        return GSON.fromJson(input, ChuckNorrisDto.class);
+    }
+
+    public WeatherDTO createWeatherDTO(String input) {
+        return GSON.fromJson(input, WeatherDTO.class);
+    }
+
 }

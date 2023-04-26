@@ -10,23 +10,24 @@ import com.nimbusds.jose.JWSSigner;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import facades.UserFacade;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import entities.User;
 import errorhandling.API_Exception;
+import errorhandling.GenericExceptionMapper;
+import facades.UserFacade;
+import security.errorhandling.AuthenticationException;
+import utils.EMF_Creator;
+
+import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import security.errorhandling.AuthenticationException;
-import errorhandling.GenericExceptionMapper;
-import javax.persistence.EntityManagerFactory;
-import utils.EMF_Creator;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Path("login")
 public class LoginEndpoint {
@@ -46,7 +47,7 @@ public class LoginEndpoint {
             username = json.get("username").getAsString();
             password = json.get("password").getAsString();
         } catch (Exception e) {
-           throw new API_Exception("Malformed JSON Suplied",400,e);
+            throw new API_Exception("Malformed JSON Suplied",400,e);
         }
 
         try {

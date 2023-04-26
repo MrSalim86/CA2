@@ -1,6 +1,7 @@
 package rest;
 
-import dtos.MyJokeDTO;
+import dtos.JokeDTO;
+import dtos.WeatherDTO;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
@@ -19,13 +20,12 @@ import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
-public class JokesResourceTest {
+public class WeatherResourceTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-    private static MyJokeDTO myJokeDTO;
+    private static WeatherDTO weatherDTO;
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
@@ -67,18 +67,17 @@ public class JokesResourceTest {
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/joke").then().statusCode(200);
+        given().when().get("/weather").then().statusCode(200);
     }
 
     @Test
-    public void testJoke() {
+    public void getWeather() {
         given()
                 .contentType(ContentType.JSON)
-                .get("/joke")
+                .get("/weather/")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("size()", equalTo(2));
+                .statusCode(HttpStatus.OK_200.getStatusCode());
     }
 
 

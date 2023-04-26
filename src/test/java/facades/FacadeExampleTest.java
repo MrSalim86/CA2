@@ -1,15 +1,13 @@
 package facades;
 
-import utils.EMF_Creator;
 import entities.RenameMe;
+import org.junit.jupiter.api.*;
+import utils.EMF_Creator;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
@@ -23,8 +21,8 @@ public class FacadeExampleTest {
 
     @BeforeAll
     public static void setUpClass() {
-       emf = EMF_Creator.createEntityManagerFactoryForTest();
-       facade = FacadeExample.getFacadeExample(emf);
+        emf = EMF_Creator.createEntityManagerFactoryForTest();
+        facade = FacadeExample.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -54,11 +52,11 @@ public class FacadeExampleTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
+    // TODO: Delete or change this method
     @Test
     public void testAFacadeMethod() throws Exception {
         assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
     }
-    
+
 
 }

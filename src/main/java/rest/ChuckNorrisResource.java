@@ -1,15 +1,10 @@
 package rest;
 
-import ExternApi.ChuckNorrisApi;
-import ExternApi.ChuckNorrisDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.ChuckDTO;
-import dtos.DadDTO;
-import dtos.MyJokeDTO;
+import dtos.ChuckNorrisDto;
+import dtos.JokeDTO;
 import facades.ChuckNorrisFacade;
-import facades.FacadeExample;
-import facades.JokeFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -20,20 +15,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("joke")
-public class JokeResource {
+public class ChuckNorrisResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-    private static final JokeFacade FACADE =  JokeFacade.getJokeFacade(EMF);
+    private static final ChuckNorrisFacade FACADE = ChuckNorrisFacade.getChuckNorrisFacade(EMF);
     //comment to test for workflow on github
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public Response getJoke() throws Exception {
-        DadDTO dadDTO = FACADE.createDadDTo(FACADE.fetchData("https://icanhazdadjoke.com/"));
-        System.out.println(dadDTO);
-        ChuckDTO chuckDTO = FACADE.createChuckDTO(FACADE.fetchData("https://api.chucknorris.io/jokes/random"));
-        System.out.println(chuckDTO);
-        MyJokeDTO myJokeDTO = new MyJokeDTO(chuckDTO,dadDTO);
+        ChuckNorrisDto chuckNorrisDto  = FACADE.createChuckNorrisDto(FACADE.fetchData("https://api.chucknorris.io/jokes/random"));
+        System.out.println(chuckNorrisDto);
+        JokeDTO myJokeDTO = new JokeDTO(chuckNorrisDto);
         return Response.ok().entity(myJokeDTO).build();
     }
 

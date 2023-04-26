@@ -1,7 +1,5 @@
 package rest;
 
-import ExternApi.ChuckNorrisApi;
-import ExternApi.ChuckNorrisDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import facades.ChuckNorrisFacade;
@@ -38,14 +36,4 @@ public class RenameMeResource {
         return "{\"count\":" + count + "}";  //Done manually so no need for a DTO
     }
 
-    @Path("joke")
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public ChuckNorrisDto joke() throws Exception {
-
-        ChuckNorrisApi api = new ChuckNorrisApi();
-        ChuckNorrisDto joke = api.fetchJoke();
-        FACADECN.create(joke);
-        return joke;
-    }
 }
