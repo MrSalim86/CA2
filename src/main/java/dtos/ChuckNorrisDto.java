@@ -34,4 +34,7 @@ public class ChuckNorrisDto {
                 '}';
     }
 
+    public String getJoke(String joke) {
+        return joke;
+    }
 }

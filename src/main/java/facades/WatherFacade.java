@@ -3,6 +3,7 @@ package facades;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.WeatherDTO;
+import dtos.WeatherRemoteDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -70,8 +71,8 @@ public class WatherFacade {
         return null;
     }
 
-    public WeatherDTO createWeatherDTO(String input) {
-      return GSON.fromJson(input, WeatherDTO.class);
+    public WeatherRemoteDTO createWeatherRemoteDTO(String input) {
+      return GSON.fromJson(input, WeatherRemoteDTO.class);
     }
 
 }

@@ -67,14 +67,14 @@ public class ChuckNorrisResourceTest {
 
     @Test
     public void testServerIsUp() {
-        given().when().get("/joke").then().statusCode(200);
+        given().when().get("/jokes").then().statusCode(200);
     }
 
     @Test
     public void testJoke() {
         given()
                 .contentType(ContentType.JSON)
-                .get("/joke")
+                .get("/jokes")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.OK_200.getStatusCode());

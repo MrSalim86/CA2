@@ -1,26 +1,28 @@
 package dtos;
 
 public class WeatherDTO {
-    private float temp;
-    private float feelsLike;
-    private float tempMin;
-    private float tempMax;
+    private double temp;
+    private double feelsLike;
+    private double tempMin;
+    private double tempMax;
     private int pressure;
     private int humidity;
-    private int visibility;
     private int id;
     private String name;
+    private double lon;
+    private double lat;
 
-    public WeatherDTO(float temp, float feelsLike, float tempMin, float tempMax, int pressure, int humidity, int visibility, int id, String name) {
-        this.temp = temp;
-        this.feelsLike = feelsLike;
-        this.tempMin = tempMin;
-        this.tempMax = tempMax;
-        this.pressure = pressure;
-        this.humidity = humidity;
-        this.visibility = visibility;
-        this.id = id;
-        this.name = name;
+    public WeatherDTO(WeatherRemoteDTO WRD) {
+        this.id = WRD.id;
+        this.temp = WRD.main.temp;
+        this.feelsLike = WRD.main.feels_like;
+        this.tempMin = WRD.main.temp_min;
+        this.tempMax = WRD.main.temp_max;
+        this.pressure = WRD.main.pressure;
+        this.humidity = WRD.main.humidity;
+        this.name = WRD.name;
+        this.lon = WRD.coord.lon;
+        this.lat = WRD.coord.lat;
 
 
     }
@@ -28,35 +30,35 @@ public class WeatherDTO {
     public WeatherDTO(WeatherDTO weatherdto) {
     }
 
-    public float getTemp() {
+    public double getTemp() {
         return temp;
     }
 
-    public void setTemp(float temp) {
+    public void setTemp(double temp) {
         this.temp = temp;
     }
 
-    public float getFeelsLike() {
+    public double getFeelsLike() {
         return feelsLike;
     }
 
-    public void setFeelsLike(float feelsLike) {
+    public void setFeelsLike(double feelsLike) {
         this.feelsLike = feelsLike;
     }
 
-    public float getTempMin() {
+    public double getTempMin() {
         return tempMin;
     }
 
-    public void setTempMin(float tempMin) {
+    public void setTempMin(double tempMin) {
         this.tempMin = tempMin;
     }
 
-    public float getTempMax() {
+    public double getTempMax() {
         return tempMax;
     }
 
-    public void setTempMax(float tempMax) {
+    public void setTempMax(double tempMax) {
         this.tempMax = tempMax;
     }
 
@@ -76,14 +78,6 @@ public class WeatherDTO {
         this.humidity = humidity;
     }
 
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(int visibility) {
-        this.visibility = visibility;
-    }
-
     public int getId() {
         return id;
     }
@@ -100,4 +94,19 @@ public class WeatherDTO {
         this.name = name;
     }
 
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
 }
